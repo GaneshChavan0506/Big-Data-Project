@@ -12,10 +12,10 @@ Resources:
       NumberOfWorkers: 8
       Role: arn:aws:iam::952084545413:role/LabRole
       Timeout: 90
-      WorkerType: G.1X
+      WorkerType: G.2X
       Command:
-        Name: glueetl
-        ScriptLocation: s3://flipkart-dataset/scripts/Sales.py
+        Name: glueeg2
+        ScriptLocation: s3://bigdata-dataset/scripts/Sales.py
         
   GlueJobProductsData:
     Type: AWS::Glue::Job
@@ -27,7 +27,7 @@ Resources:
       NumberOfWorkers: 8
       Role: arn:aws:iam::952084545413:role/LabRole
       Timeout: 90
-      WorkerType: G.1X
+      WorkerType: G.2X
       Command:
-        Name: glueetl
-        ScriptLocation: s3://flipkart-dataset/scripts/Products_Glue_Job.py
+        Name: glueeg3
+        ScriptLocation: s3://bigdata-dataset/scripts/Products_Glue_Job.py
