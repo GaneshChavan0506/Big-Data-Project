@@ -9,13 +9,13 @@ Resources:
       Description: Ingests data from s3 and after doing transformation it writes the data as a parquet file to the data warehouse
       GlueVersion: 4.0
       MaxRetries: 0
-      NumberOfWorkers: 8
+      NumberOfWorkers: 2
       Role: arn:aws:iam::952084545413:role/LabRole
       Timeout: 90
       WorkerType: G.2X
       Command:
         Name: glueeg2
-        ScriptLocation: s3://bigdata-dataset/scripts/Sales.py
+        ScriptLocation: s3://bigdata-dataset/scripts/facts_trial_job.py
         
   GlueJobProductsData:
     Type: AWS::Glue::Job
@@ -24,10 +24,10 @@ Resources:
       Description: Ingests data from RDS and after doing transformation it writes the data as a parquet file to the data warehouse
       GlueVersion: 4.0
       MaxRetries: 0
-      NumberOfWorkers: 8
+      NumberOfWorkers: 2
       Role: arn:aws:iam::952084545413:role/LabRole
       Timeout: 90
       WorkerType: G.2X
       Command:
         Name: glueeg3
-        ScriptLocation: s3://bigdata-dataset/scripts/Products_Glue_Job.py
+        ScriptLocation: s3://bigdata-dataset/scripts/dim_trial_job.py
