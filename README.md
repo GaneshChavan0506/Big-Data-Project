@@ -1,1 +1,1 @@
-# Big-Data-Project
+# flipkart grocery sales data analysis using AWS services
