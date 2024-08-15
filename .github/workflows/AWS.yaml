@@ -23,6 +23,7 @@ jobs:
 
       - name: Deploy CloudFormation
         run: |
+          set -e
           aws cloudformation deploy \
             --stack-name AutomateStack \
             --template-file .github/workflows/CFT.yml \
@@ -32,4 +33,14 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-east-1
           #AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          
+        continue-on-error: true
+
+      - name: Fetch CloudFormation Failure Events
+        if: failure()  # This step runs only if the previous step fails
+        run: |
+          aws cloudformation describe-stack-events --stack-name AutomateStack | grep "ResourceStatusReason"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+          #AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
