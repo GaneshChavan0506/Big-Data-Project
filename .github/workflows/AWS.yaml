@@ -23,7 +23,6 @@ jobs:
 
       - name: Deploy CloudFormation
         run: |
-          set -e
           aws cloudformation deploy \
             --stack-name AutomateStack \
             --template-file CFT.yml \
