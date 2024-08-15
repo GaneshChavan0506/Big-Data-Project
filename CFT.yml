@@ -16,6 +16,7 @@ Resources:
       Command:
         Name: glueeg2
         ScriptLocation: s3://bigdata-dataset/scripts/facts_trial_job.py
+
         
   GlueJobProductsData:
     Type: AWS::Glue::Job
