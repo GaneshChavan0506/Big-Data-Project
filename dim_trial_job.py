@@ -62,6 +62,6 @@ df = df.withColumn(
 df = df.coalesce(1)
 
 # Write the merged DataFrame back to S3
-df.write.mode("overwrite").parquet("s3://pirodata/extended-flipkart-dimension/")
+df.write.mode("overwrite").parquet("s3://cftcleandata/dim_cft/")
 
 job.commit()
