@@ -1,34 +1,28 @@
-AWSTemplateFormatVersion: "2010-09-09"
-Description: "AWS CloudFormation Template"
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation template to create a Glue database, crawler, and ETL jobs using an existing IAM role.
 
 Resources:
-  GlueJobSalesData:
+  GlueDatabase:
     Type: 'AWS::Glue::Database'
-    Properties:
-      Name: Sales_Glue_Job
-      Description: Ingests data from s3 and after doing transformation it writes the data as a parquet file to the data warehouse
-      GlueVersion: 4.0
-      MaxRetries: 0
-      NumberOfWorkers: 2
-      Role: arn:aws:iam::952084545413:role/LabRole
-      Timeout: 90
-      WorkerType: G.2X
-      Command:
-        Name: glueeg2
-        ScriptLocation: s3://bigdata-dataset/scripts/facts_trial_job.py
+    Properties: 
+      CatalogId: 952084545413
+      DatabaseInput: 
+        Name: my_database
 
-        
-  GlueJobProductsData:
-    Type: AWS::Glue::Job
+  CombineDataETLJob:
+    Type: 'AWS::Glue::Job'
     Properties:
-      Name: Product_Glue_Job
-      Description: Ingests data from RDS and after doing transformation it writes the data as a parquet file to the data warehouse
-      GlueVersion: 4.0
-      MaxRetries: 0
-      NumberOfWorkers: 2
+      Name: combine_data_job
       Role: arn:aws:iam::952084545413:role/LabRole
-      Timeout: 90
-      WorkerType: G.2X
       Command:
-        Name: glueeg3
-        ScriptLocation: s3://bigdata-dataset/scripts/dim_trial_job.py
+        Name: glueetl
+        ScriptLocation: 's3://bigdata-dataset/scripts/facts_trial_job.py'
+        PythonVersion: '3'
+      DefaultArguments:
+        '--TempDir': 's3://bigdata-dataset/temp/'
+        '--job-bookmark-option': 'job-bookmark-enable'
+      MaxRetries: 0
+      Timeout: 2880
+      GlueVersion: '4.0'
+      NumberOfWorkers: 2
+      WorkerType: G.1X
