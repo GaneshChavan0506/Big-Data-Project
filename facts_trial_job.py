@@ -66,6 +66,6 @@ df = df.dropna(subset=['Discount_Percentage', 'Profit_Margin'])
 df = df.coalesce(1)
 
 # Write the merged DataFrame back to S3
-df.write.mode("overwrite").parquet("s3://pirodata/extended-flipkart-dimension/")
+df.write.mode("overwrite").parquet("s3://cftcleandata/fact_cft/")
 
 job.commit()
