@@ -6,6 +6,8 @@ from awsglue.job import Job
 from pyspark.context import SparkContext
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import when, col
+from pyspark.sql.types import IntegerType
+from pyspark.sql.types import StringType
 
 args = getResolvedOptions(sys.argv, ['JOB_NAME'])
 sc = SparkContext()
@@ -14,15 +16,14 @@ spark = glueContext.spark_session
 job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 
-# Script generated for node Amazon S3 
-AmazonS3_node1723543253831 = glueContext.create_dynamic_frame.from_options(format_options={"quoteChar": "\"", "withHeader": True, "separator": ","}, connection_type="s3", format="csv", connection_options={"paths": ["s3://flipcartdata/CSV_Data/dim_product.csv"]}, transformation_ctx="AmazonS3_node1723543253831")
+#reading dataframe
+df = spark.read.csv("s3://flipcartdata/dim_data/", header=True, inferSchema=True)
 
-# Script generated for node Change Schema
-ChangeSchema_node1723543435299 = ApplyMapping.apply(frame=AmazonS3_node1723543253831, mappings=[("product_id", "string", "product_id", "int"), ("product_name", "string", "product_name", "string"), ("unit", "string", "unit", "string"), ("product_type", "string", "product_type", "string"), ("brand_name", "string", "brand_name", "string"), ("manufacturer_name", "string", "manufacturer_name", "string"), ("l0_category", "string", "l0_category", "string"), ("l1_category", "string", "l1_category", "string"), ("l2_category", "string", "l2_category", "string"), ("l0_category_id", "string", "l0_category_id", "int"), ("l1_category_id", "string", "l1_category_id", "int"), ("l2_category_id", "string", "l2_category_id", "int")], transformation_ctx="ChangeSchema_node1723543435299")
-
-# Convert the dynamic frame to a Spark DataFrame
-df = ChangeSchema_node1723543435299.toDF()
-
+df=df.drop("_c0")
+df = df.withColumn("product_id", df["product_id"].cast(IntegerType()))
+df = df.withColumn("l0_category_id", df["l0_category_id"].cast(IntegerType()))
+df = df.withColumn("l1_category_id", df["l1_category_id"].cast(IntegerType()))
+df = df.withColumn("l2_category_id", df["l2_category_id"].cast(IntegerType()))
 
 df = df.withColumn(
     "brand_name",
@@ -57,11 +58,10 @@ df = df.withColumn(
     .otherwise(col("brand_name"))
 )
 
-
 # Coalesce to a single partition to ensure a single output file
 df = df.coalesce(1)
 
 # Write the merged DataFrame back to S3
-df.write.mode("overwrite").parquet("s3://cftcleandata/dim_cft/")
+df.write.mode("overwrite").parquet("s3://pirodata/dim_table/")
 
 job.commit()
