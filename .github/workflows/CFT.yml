@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: "Automated AWS Data Pipeline with Glue, Lambda, and Athena"
+
+Resources:
+  GlueDatabase:
+    Type: AWS::Glue::Database
+    Properties: 
+      CatalogId: 413230836697
+      DatabaseInput: 
+        Name: my_database
+
+  GluedimCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Name: data-crawler-dim
+      Role: arn:aws:iam::413230836697:role/LabRole
+      DatabaseName: my_database
+      Targets:
+        S3Targets:
+          - Path: 's3://cleanautomatic/dim_c_data/'
+
+  GluefactCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Name: data-crawler-fact
+      Role: arn:aws:iam::413230836697:role/LabRole
+      DatabaseName: my_database
+      Targets:
+        S3Targets:
+          - Path: 's3://cleanautomatic/fact_c_data/'
+
+  GlueDimData:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: Product_Glue_Job_Dim  # Changed the name to make it unique
+      Description: "data-processing-job for dimension data"
+      GlueVersion: 4.0
+      MaxRetries: 0
+      NumberOfWorkers: 2
+      Role: arn:aws:iam::413230836697:role/LabRole
+      Timeout: 90
+      WorkerType: G.1X
+      Command:
+        Name: glueetl
+        ScriptLocation: s3://flipcartdataset/scripts/Products_Glue_Job.py
+
+  GluefactData:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: Product_Glue_Job_Fact  # Changed the name to make it unique
+      Description: "data-processing-job for fact data"
+      GlueVersion: 4.0
+      MaxRetries: 0
+      NumberOfWorkers: 2
+      Role: arn:aws:iam::413230836697:role/LabRole
+      Timeout: 90
+      WorkerType: G.1X
+      Command:
+        Name: glueetl
+        ScriptLocation: s3://flipcartdataset/scripts/Sales.py
