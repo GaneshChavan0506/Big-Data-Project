@@ -17,7 +17,7 @@ job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 
 #reading dataframe
-df = spark.read.csv("s3://flipcartdata/raw_products _data/", header=True, inferSchema=True)
+df = spark.read.csv("s3://flipcartdata/raw_products_data/", header=True, inferSchema=True)
 
 df=df.drop("_c0")
 df = df.withColumn("product_id", df["product_id"].cast(IntegerType()))
