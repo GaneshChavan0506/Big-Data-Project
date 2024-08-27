@@ -13,12 +13,12 @@ Resources:
   GluedimCrawler:
     Type: AWS::Glue::Crawler
     Properties:
-      Name: data-crawler-dim
+      Name: data-crawler-products 
       Role: arn:aws:iam::952084545413:role/LabRole
       DatabaseName: my_database
       Targets:
         S3Targets:
-          - Path: 's3://cleanautomatic/dim_c_data/'
+          - Path: 's3://cftcleandata/product _cleandata/'
 
   GluefactCrawler:
     Type: AWS::Glue::Crawler
@@ -28,13 +28,13 @@ Resources:
       DatabaseName: my_database
       Targets:
         S3Targets:
-          - Path: 's3://cleanautomatic/fact_c_data/'
+          - Path: 's3://s3://cftcleandata/sales_cleandata/'
 
   GlueDimData:
     Type: AWS::Glue::Job
     Properties:
-      Name: Product_Glue_Job_Dim  # Changed the name to make it unique
-      Description: "data-processing-job for dimension data"
+      Name: Product_Glue_Job
+      Description: "data-processing-job for product data"
       GlueVersion: 4.0
       MaxRetries: 0
       NumberOfWorkers: 2
@@ -43,7 +43,7 @@ Resources:
       WorkerType: G.1X
       Command:
         Name: glueetl
-        ScriptLocation: s3://flipcartdataset/scripts/Products_Glue_Job.py
+        ScriptLocation: s3://bigdata-dataset/scripts/Products_data.py
 
   GluefactData:
     Type: AWS::Glue::Job
@@ -58,4 +58,4 @@ Resources:
       WorkerType: G.1X
       Command:
         Name: glueetl
-        ScriptLocation: s3://flipcartdataset/scripts/Sales.py
+        ScriptLocation: s3://bigdata-dataset/scripts/Sales_data.py
