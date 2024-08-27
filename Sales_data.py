@@ -20,7 +20,7 @@ job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 
 # Read all CSV files into a single DataFrame
-df = spark.read.csv("s3://flipkar-data-uncleaned/fact/", header=True, inferSchema=True)
+df = spark.read.csv("s3://flipcartdata/raw_sales_data/", header=True, inferSchema=True)
 
 df=df.drop("_c0")
 df=df.drop("Unnamed: 0")
@@ -74,6 +74,6 @@ df = df.withColumn(
 df = df.coalesce(1)
 
 # Write the merged DataFrame back to S3
-df.write.mode("overwrite").parquet("s3://cleanautomatic/fact_c_data/")
+df.write.mode("overwrite").parquet("s3://cftcleandata/sales_cleandata/")
 
 job.commit()
