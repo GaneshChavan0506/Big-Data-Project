@@ -6,7 +6,7 @@ Resources:
   GlueDatabase:
     Type: AWS::Glue::Database
     Properties: 
-      CatalogId: 413230836697
+      CatalogId: 952084545413
       DatabaseInput: 
         Name: my_database
 
@@ -14,7 +14,7 @@ Resources:
     Type: AWS::Glue::Crawler
     Properties:
       Name: data-crawler-dim
-      Role: arn:aws:iam::413230836697:role/LabRole
+      Role: arn:aws:iam::952084545413:role/LabRole
       DatabaseName: my_database
       Targets:
         S3Targets:
@@ -24,7 +24,7 @@ Resources:
     Type: AWS::Glue::Crawler
     Properties:
       Name: data-crawler-fact
-      Role: arn:aws:iam::413230836697:role/LabRole
+      Role: arn:aws:iam::952084545413:role/LabRole
       DatabaseName: my_database
       Targets:
         S3Targets:
@@ -38,7 +38,7 @@ Resources:
       GlueVersion: 4.0
       MaxRetries: 0
       NumberOfWorkers: 2
-      Role: arn:aws:iam::413230836697:role/LabRole
+      Role: arn:aws:iam::952084545413:role/LabRole
       Timeout: 90
       WorkerType: G.1X
       Command:
@@ -53,7 +53,7 @@ Resources:
       GlueVersion: 4.0
       MaxRetries: 0
       NumberOfWorkers: 2
-      Role: arn:aws:iam::413230836697:role/LabRole
+      Role: arn:aws:iam::952084545413:role/LabRole
       Timeout: 90
       WorkerType: G.1X
       Command:
