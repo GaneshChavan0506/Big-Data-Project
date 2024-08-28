@@ -28,7 +28,7 @@ Resources:
       DatabaseName: my_database
       Targets:
         S3Targets:
-          - Path: 's3://cftcleandata/sales_cleandata//'
+          - Path: 's3://cftcleandata/sales_cleandata/'
 
   GlueDimData:
     Type: AWS::Glue::Job
