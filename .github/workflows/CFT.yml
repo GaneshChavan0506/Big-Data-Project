@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: "Automated AWS Data Pipeline with Glue, Lambda, and Athena"
+Description: "Automated AWS Data Pipeline with Glue, crawler, and Athena"
 
 Resources:
   GlueDatabase:
@@ -18,7 +18,7 @@ Resources:
       DatabaseName: my_database
       Targets:
         S3Targets:
-          - Path: 's3://cftcleandata/product _cleandata/'
+          - Path: 's3://cftcleandata/product_cleandata/'
 
   GluefactCrawler:
     Type: AWS::Glue::Crawler
@@ -28,7 +28,7 @@ Resources:
       DatabaseName: my_database
       Targets:
         S3Targets:
-          - Path: 's3://s3://cftcleandata/sales_cleandata/'
+          - Path: 's3://cftcleandata/sales_cleandata//'
 
   GlueDimData:
     Type: AWS::Glue::Job
@@ -43,12 +43,12 @@ Resources:
       WorkerType: G.1X
       Command:
         Name: glueetl
-        ScriptLocation: s3://bigdata-dataset/scripts/Products_data.py
+        ScriptLocation: s3://bigdata-dataset/scripts/Products_Glue_Job.py
 
   GluefactData:
     Type: AWS::Glue::Job
     Properties:
-      Name: Product_Glue_Job_Fact  # Changed the name to make it unique
+      Name: Sales_Glue_Job_Fact
       Description: "data-processing-job for fact data"
       GlueVersion: 4.0
       MaxRetries: 0
@@ -58,4 +58,4 @@ Resources:
       WorkerType: G.1X
       Command:
         Name: glueetl
-        ScriptLocation: s3://bigdata-dataset/scripts/Sales_data.py
+        ScriptLocation: s3://bigdata-dataset/scripts/Sales.py
