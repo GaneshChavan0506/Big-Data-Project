@@ -23,7 +23,7 @@ Resources:
   GluefactCrawler:
     Type: AWS::Glue::Crawler
     Properties:
-      Name: data-crawler-fact
+      Name: data-crawler-sales
       Role: arn:aws:iam::952084545413:role/LabRole
       DatabaseName: my_database
       Targets:
@@ -48,7 +48,7 @@ Resources:
   GluefactData:
     Type: AWS::Glue::Job
     Properties:
-      Name: Sales_Glue_Job_Fact
+      Name: Sales_Glue_Job
       Description: "data-processing-job for fact data"
       GlueVersion: 4.0
       MaxRetries: 0
