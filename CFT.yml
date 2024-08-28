@@ -37,7 +37,7 @@ Resources:
       Description: "data-processing-job for product data"
       GlueVersion: 4.0
       MaxRetries: 0
-      NumberOfWorkers: 2
+      NumberOfWorkers: 8
       Role: arn:aws:iam::952084545413:role/LabRole
       Timeout: 90
       WorkerType: G.1X
@@ -52,7 +52,7 @@ Resources:
       Description: "data-processing-job for fact data"
       GlueVersion: 4.0
       MaxRetries: 0
-      NumberOfWorkers: 2
+      NumberOfWorkers: 8
       Role: arn:aws:iam::952084545413:role/LabRole
       Timeout: 90
       WorkerType: G.1X
