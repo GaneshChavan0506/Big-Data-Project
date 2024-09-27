@@ -1,4 +1,4 @@
-# Analysis of Flipkart Grocery Transactions and Product Details 🛒
+# Analysis of 🛒Flipkart Grocery Transactions and Product Details 
 ## Goal: 
 we analysed trends and patterns Flipkart Grocery Transactions and Product Details. Our goal was assist to organisation in improving SCM which products are popular, which brands are leading, and how products are categorized
 
