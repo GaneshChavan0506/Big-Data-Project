@@ -1,14 +1,16 @@
-# Analysis of Flipkart Grocery Transactions and Product Details
-Goal: 
+# Analysis of Flipkart Grocery Transactions and Product Details 🛒
+## Goal: 
 we analysed trends and patterns Flipkart Grocery Transactions and Product Details. Our goal was assist to organisation in improving SCM which products are popular, which brands are leading, and how products are categorized
 
-Tools We’ll Use:
-•  AWS Glue: Applied for ETL operations, enabling seamless data integration and transformation.
-•  AWS S3: Scalable and durable storage for raw and processed data.
-•  AWS Athena: Used for querying data directly in S3 using SQL, enabling quick and efficient analytics.
-•  GitHub Actions: Automated the data pipeline process, ensuring a streamlined workflow with each repository update.
+## Tools We’ll Use:
+- **AWS Glue:** Applied for ETL operations, enabling seamless data integration and transformation.
+- **AWS S3:** Scalable and durable storage for raw and processed data.
+- **AWS RDS:** Hosted a relational database for structured data, forming a robust foundation for analysis.
+- **AWS Athena:** Used for querying data directly in S3 using SQL, enabling quick and efficient analytics.
+- **GitHub Actions:** Automated the data pipeline process by using AWS CFT, ensuring a streamlined workflow with each repository update.
 
-What We’ll Do:
+
+## What We’ll Do:
 1.	Data Storage and Processing with AWS:
 o	Use Amazon S3 to store the large datasets.
 o	Process the data using Amazon EMR with Apache Spark or Apache Hive for big data analytics.
@@ -22,6 +24,8 @@ o	Display insights like top-selling products, sales trends over time, and the ef
 4.	Reporting:
 o	Summarize the analysis in easy-to-understand reports.
 o	Highlight key findings and provide actionable recommendations.
+
+
 
 
 
