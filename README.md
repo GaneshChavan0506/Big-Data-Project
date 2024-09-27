@@ -10,7 +10,7 @@ we analysed trends and patterns Flipkart Grocery Transactions and Product Detail
 - **GitHub Actions:** Automated the data pipeline process by using AWS CFT, ensuring a streamlined workflow with each repository update.
 
 
-## What We’ll Do:
+## What We Done :
 1.	Data Storage and Processing with AWS:
 -	Use Amazon S3 to store the large datasets.
 -	Process the data using Amazon EMR with Apache Spark or Apache Hive for big data analytics.
