@@ -2,7 +2,7 @@
 ## Goal: 
 we analysed trends and patterns Flipkart Grocery Transactions and Product Details. Our goal was assist to organisation in improving SCM which products are popular, which brands are leading, and how products are categorized
 
-## Tools We’ll Use:
+## Service's Used:
 - **AWS Glue:** Applied for ETL operations, enabling seamless data integration and transformation.
 - **AWS S3:** Scalable and durable storage for raw and processed data.
 - **AWS RDS:** Hosted a relational database for structured data, forming a robust foundation for analysis.
